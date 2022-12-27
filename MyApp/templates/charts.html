@@ -5,7 +5,7 @@
 
 <script>
 const dates = [{% for i in tab %} '{{i.dt}}', {% endfor %}];
-const datas = [{% for i in tab %} '{{i.hum}}', {% endfor %}];
+const datas = [{% for i in tab %} '{{i.temp}}', {% endfor %}];
 var ctx = document.getElementById('myAreaChart').getContext('2d');
 var myChart = new Chart(ctx, {
 type: 'line',
@@ -13,7 +13,7 @@ data: {
 labels: dates,
 scaleShowLabels : false,
 datasets: [{
-label: 'humidité',
+label: 'Temperature',
 data:datas,
 borderColor: [
 'rgba(0,0,2,1)',

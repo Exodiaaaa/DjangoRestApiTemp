@@ -1,10 +1,15 @@
 import csv
-
+import telepot
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from .models import Dht
+
+
+
+
+
 
 
 # Create your views here.
@@ -16,6 +21,8 @@ def dht11(request):
     tab = Dht.objects.all()
     s = {'tab': tab}
     return render(request, 'tables.html', s)
+
+
 
 
 class EditorChartView (TemplateView):
@@ -37,3 +44,5 @@ def exp_csv(request):
     for std in studs:
         writer.writerow(std)
     return response
+
+
