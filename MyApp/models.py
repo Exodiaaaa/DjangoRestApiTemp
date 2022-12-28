@@ -1,25 +1,39 @@
 from django.db import models
 import telepot, pywhatkit
 
-token = "**************************"
-rece_id = "*********"
-bot = telepot.Bot(token);
-c = 0;
+
+def sendtelegram(temp, chat_id):
+    token = "5608409696:AAEjXiPn91L8yVzonMAcAIedSA0mPGK1b90"
+    rece_id = chat_id
+    bot = telepot.Bot(token)
+    bot.sendMessage(rece_id, "High temp!" + str(temp) + "°C 🌡️")
+
+
+def sendwhatsapp(temp):
+    pywhatkit.sendwhatmsg_instantly(f'+212604009383', "High TEMP " + str(temp)+"°C 🌡️", 10)
+
+def sendtogroup(temp):
+    contact=['604009383','762969835','697239084']
+    for tel in contact:
+        pywhatkit.sendwhatmsg_instantly (f'+212'+tel, "High TEMP " + str(temp)+"°C 🌡️", 10)
+
 
 class Dht (models.Model):
     temp = models.FloatField(null=True)
     hum = models.FloatField(null=True)
     dt = models.DateTimeField(auto_now_add=True, null=True)
-
+    c = 0
 
     def __str__(self):
         return str(self.temp)
 
-    def save(self , *args , **kwargs) :
-
+    def save(self, *args, **kwargs):
         if self.temp > 10:
-            bot.sendMessage(rece_id, "High temp!"+ str(self.temp))
-            pywhatkit.sendwhatmsg_instantly(f'+***********',"High TEMP "+str(self.temp),10)
+            sendtelegram(self.temp, "5465569016")
+            sendtogroup(self.temp)
+            self.c += 1
 
+        else:
+            self.c = 0
 
         return super().save(*args, **kwargs)
