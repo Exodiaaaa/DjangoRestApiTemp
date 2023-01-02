@@ -13,9 +13,9 @@ def sendwhatsapp(temp):
     pywhatkit.sendwhatmsg_instantly(f'+212604009383', "High TEMP " + str(temp)+"°C 🌡️", 10)
 
 def sendtogroup(temp):
-    contact=['604009383','762969835','697239084']
+    contact = ['604009383', '762969835', '697239084']
     for tel in contact:
-        pywhatkit.sendwhatmsg_instantly (f'+212'+tel, "High TEMP " + str(temp)+"°C 🌡️", 10)
+        pywhatkit.sendwhatmsg_instantly(f'+212'+tel, "High TEMP " + str(temp)+"°C 🌡️", 20)
 
 
 class Dht (models.Model):
@@ -30,10 +30,12 @@ class Dht (models.Model):
     def save(self, *args, **kwargs):
         if self.temp > 10:
             sendtelegram(self.temp, "5465569016")
-            sendtogroup(self.temp)
-            self.c += 1
-
+            Dht.c += 1
         else:
-            self.c = 0
+            Dht.c = 0
+
+        if Dht.c > 2:
+            sendtelegram(self.temp, "5465569016")
+            sendtelegram(self.temp, "5418445446")
 
         return super().save(*args, **kwargs)

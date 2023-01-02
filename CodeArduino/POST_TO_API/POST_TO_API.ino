@@ -3,9 +3,9 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const char* serverName = "http://10.9.9.2:8000/api/post";
-const char* ssid = "ET@ehei";
-const char* password = "eheio2023";
+const char* serverName = "http://192.168.1.37:8000/api/post";
+const char* ssid = "CAFE VENOM 2.4 G";
+const char* password = "@77779999";
 // GPIO where the DS18B20 is connected to
 const int oneWireBus = D2; 
 float vbat=4200;    
